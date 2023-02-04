@@ -53,7 +53,6 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
   setSelected,
   disabled = false,
 }) => {
-  console.log("ps", paymentSession)
   return (
     <div
       className={clsx(
