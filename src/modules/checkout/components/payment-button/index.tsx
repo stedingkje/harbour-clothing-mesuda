@@ -114,9 +114,9 @@ const StripePaymentButton = ({
     // https://reactjs.org/docs/forms.html#controlled-components
 
     // const accountholderName = event.target["accountholder-name"]
-
+    console.log("TEST PAYMENT")
     const { error } = await stripe
-      .confirmIdealPayment("{CLIENT_SECRET}", {
+      .confirmIdealPayment(session.data.client_secret as string, {
         payment_method: {
           ideal: { bank: "rabobank" },
           billing_details: {
@@ -191,7 +191,7 @@ const StripePaymentButton = ({
   return (
     <>
       <Button
-        // disabled={submitting || disabled || notReady}
+        disabled={submitting || disabled || notReady}
         onClick={handlePayment}
       >
         {submitting ? <Spinner /> : "Checkout"}
