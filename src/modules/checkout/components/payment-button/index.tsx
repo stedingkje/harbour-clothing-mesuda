@@ -191,7 +191,7 @@ const StripePaymentButton = ({
   return (
     <>
       <Button
-        disabled={submitting || disabled || notReady}
+        // disabled={submitting || disabled || notReady}
         onClick={handlePayment}
       >
         {submitting ? <Spinner /> : "Checkout"}
