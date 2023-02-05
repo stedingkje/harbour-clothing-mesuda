@@ -4,7 +4,11 @@ import Button from "@modules/common/components/button"
 import Spinner from "@modules/common/icons/spinner"
 import { OnApproveActions, OnApproveData } from "@paypal/paypal-js"
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"
-import { useElements, useStripe } from "@stripe/react-stripe-js"
+import {
+  IdealBankElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js"
 import { useCart } from "medusa-react"
 import React, { useEffect, useState } from "react"
 
@@ -15,7 +19,7 @@ type PaymentButtonProps = {
 const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
   const [notReady, setNotReady] = useState(true)
   const { cart } = useCart()
-
+  const idealBankElement = IdealBankElement
   useEffect(() => {
     setNotReady(true)
 
@@ -122,6 +126,7 @@ const StripePaymentButton = ({
             phone: cart.billing_address.phone ?? undefined,
           },
         },
+        return_url: "https://google.com",
       })
       .then(({ error, paymentIntent }) => {
         if (error) {

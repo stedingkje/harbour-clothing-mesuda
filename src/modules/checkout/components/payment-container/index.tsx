@@ -1,5 +1,6 @@
 import { PaymentSession } from "@medusajs/medusa"
 import Radio from "@modules/common/components/radio"
+import { IdealBankElement } from "@stripe/react-stripe-js"
 import clsx from "clsx"
 import React from "react"
 import PaymentStripe from "../payment-stripe"
@@ -93,9 +94,14 @@ const PaymentElement = ({
 }) => {
   switch (paymentSession.provider_id) {
     case "stripe":
+    case "stripe-ideal":
+    case "stripe-bancontact":
+    case "stripe-blik":
+    case "stripe-giropay":
+    case "stripe-przelewy24":
       return (
         <div className="pt-8 pr-7">
-          <PaymentStripe />
+          <IdealBankElement />
         </div>
       )
     case "manual":
