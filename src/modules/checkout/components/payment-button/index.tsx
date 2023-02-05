@@ -50,7 +50,9 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
     case "stripe-giropay":
     case "stripe-przelewy24":
       return (
-        <StripePaymentButton session={paymentSession} notReady={notReady} />
+        <>
+          <StripePaymentButton session={paymentSession} notReady={notReady} />
+        </>
       )
     case "manual":
       return <ManualTestPaymentButton notReady={notReady} />
@@ -100,9 +102,9 @@ const StripePaymentButton = ({
     }
 
     await stripe
-      .confirmCardPayment(session.data.client_secret as string, {
+      .confirmIdealPayment(session.data.client_secret as string, {
         payment_method: {
-          card: card,
+          ideal: { bank: "rabobank" },
           billing_details: {
             name:
               cart.billing_address.first_name +
