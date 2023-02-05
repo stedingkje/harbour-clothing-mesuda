@@ -55,7 +55,8 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
     case "stripe-przelewy24":
       return (
         <>
-          <StripePaymentButton session={paymentSession} notReady={notReady} />
+          {console.log("STRIPE BUTTON")}
+          <StripePaymentButton session={paymentSession} />
         </>
       )
     case "manual":
@@ -74,7 +75,7 @@ const StripePaymentButton = ({
   notReady,
 }: {
   session: PaymentSession
-  notReady: boolean
+  notReady?: boolean
 }) => {
   const [disabled, setDisabled] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -194,7 +195,7 @@ const StripePaymentButton = ({
         disabled={submitting || disabled || notReady}
         onClick={handlePayment}
       >
-        {submitting ? <Spinner /> : "Checkout"}
+        {submitting ? <Spinner /> : "iDeal betaling doen"}
       </Button>
       {errorMessage && (
         <div className="text-red-500 text-small-regular mt-2">
