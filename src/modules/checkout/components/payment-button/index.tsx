@@ -44,6 +44,11 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
 
   switch (paymentSession?.provider_id) {
     case "stripe":
+    case "stripe-ideal":
+    case "stripe-bancontact":
+    case "stripe-blik":
+    case "stripe-giropay":
+    case "stripe-przelewy24":
       return (
         <StripePaymentButton session={paymentSession} notReady={notReady} />
       )
