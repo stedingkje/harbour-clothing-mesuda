@@ -14,6 +14,11 @@ const Wrapper: React.FC<WrapperProps> = ({ paymentSession, children }) => {
 
   switch (paymentSession.provider_id) {
     case "stripe":
+    case "stripe-ideal":
+    case "stripe-bancontact":
+    case "stripe-blik":
+    case "stripe-giropay":
+    case "stripe-przelewy24":
       return (
         <StripeWrapper paymentSession={paymentSession}>
           {children}
