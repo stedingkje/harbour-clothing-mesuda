@@ -105,8 +105,18 @@ const StripePaymentButton = ({
       return
     }
 
-    await stripe
-      .confirmIdealPayment(session.data.client_secret as string, {
+    const idealBank = elements.getElement(IdealBankElement)
+
+    // For brevity, this example is using uncontrolled components for
+    // the accountholder's name. In a real world app you will
+    // probably want to use controlled components.
+    // https://reactjs.org/docs/uncontrolled-components.html
+    // https://reactjs.org/docs/forms.html#controlled-components
+
+    // const accountholderName = event.target["accountholder-name"]
+
+    const { error } = await stripe
+      .confirmIdealPayment("{CLIENT_SECRET}", {
         payment_method: {
           ideal: { bank: "rabobank" },
           billing_details: {
@@ -114,47 +124,68 @@ const StripePaymentButton = ({
               cart.billing_address.first_name +
               " " +
               cart.billing_address.last_name,
-            address: {
-              city: cart.billing_address.city ?? undefined,
-              country: cart.billing_address.country_code ?? undefined,
-              line1: cart.billing_address.address_1 ?? undefined,
-              line2: cart.billing_address.address_2 ?? undefined,
-              postal_code: cart.billing_address.postal_code ?? undefined,
-              state: cart.billing_address.province ?? undefined,
-            },
-            email: cart.email,
-            phone: cart.billing_address.phone ?? undefined,
           },
         },
-        return_url: "https://google.com",
-      })
-      .then(({ error, paymentIntent }) => {
-        if (error) {
-          const pi = error.payment_intent
-
-          if (
-            (pi && pi.status === "requires_capture") ||
-            (pi && pi.status === "succeeded")
-          ) {
-            onPaymentCompleted()
-          }
-
-          setErrorMessage(error.message)
-          return
-        }
-
-        if (
-          (paymentIntent && paymentIntent.status === "requires_capture") ||
-          paymentIntent.status === "succeeded"
-        ) {
-          return onPaymentCompleted()
-        }
-
-        return
+        return_url: "https://example.com/checkout/complete",
       })
       .finally(() => {
         setSubmitting(false)
       })
+
+    if (error) {
+      // Show error to your customer.
+      console.log(error.message)
+    }
+    // await stripe
+    //   .confirmIdealPayment(session.data.client_secret as string, {
+    //     payment_method: {
+    //       ideal: { bank: "rabobank" },
+    //       billing_details: {
+    //         name:
+    //           cart.billing_address.first_name +
+    //           " " +
+    //           cart.billing_address.last_name,
+    //         address: {
+    //           city: cart.billing_address.city ?? undefined,
+    //           country: cart.billing_address.country_code ?? undefined,
+    //           line1: cart.billing_address.address_1 ?? undefined,
+    //           line2: cart.billing_address.address_2 ?? undefined,
+    //           postal_code: cart.billing_address.postal_code ?? undefined,
+    //           state: cart.billing_address.province ?? undefined,
+    //         },
+    //         email: cart.email,
+    //         phone: cart.billing_address.phone ?? undefined,
+    //       },
+    //     },
+    //     return_url: "https://google.com",
+    //   })
+    //   .then(({ error, paymentIntent }) => {
+    //     if (error) {
+    //       const pi = error.payment_intent
+
+    //       if (
+    //         (pi && pi.status === "requires_capture") ||
+    //         (pi && pi.status === "succeeded")
+    //       ) {
+    //         onPaymentCompleted()
+    //       }
+
+    //       setErrorMessage(error.message)
+    //       return
+    //     }
+
+    //     if (
+    //       (paymentIntent && paymentIntent.status === "requires_capture") ||
+    //       paymentIntent.status === "succeeded"
+    //     ) {
+    //       return onPaymentCompleted()
+    //     }
+
+    //     return
+    //   })
+    //   .finally(() => {
+    //     setSubmitting(false)
+    //   })
   }
 
   return (

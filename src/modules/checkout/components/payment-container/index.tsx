@@ -93,12 +93,7 @@ const PaymentElement = ({
   paymentSession: PaymentSession
 }) => {
   switch (paymentSession.provider_id) {
-    case "stripe":
     case "stripe-ideal":
-    case "stripe-bancontact":
-    case "stripe-blik":
-    case "stripe-giropay":
-    case "stripe-przelewy24":
       return (
         <div className="pt-8 pr-7">
           <IdealBankElement />
