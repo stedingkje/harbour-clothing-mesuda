@@ -118,15 +118,6 @@ const StripePaymentButton = ({
     console.log("TEST PAYMENT")
     const { error } = await stripe
       .confirmIdealPayment(session.data.client_secret as string, {
-        payment_method: {
-          ideal: { bank: "rabobank" },
-          billing_details: {
-            name:
-              cart.billing_address.first_name +
-              " " +
-              cart.billing_address.last_name,
-          },
-        },
         return_url: "https://example.com/checkout/complete",
       })
       .finally(() => {
@@ -192,6 +183,7 @@ const StripePaymentButton = ({
   return (
     <>
       <Button disabled={submitting} onClick={handlePayment}>
+        {console.log(submitting)}
         {submitting ? <Spinner /> : "iDeal betaling doen"}
       </Button>
       {errorMessage && (
