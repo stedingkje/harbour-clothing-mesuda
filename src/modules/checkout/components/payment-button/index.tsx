@@ -98,7 +98,7 @@ const StripePaymentButton = ({
     }
   }, [stripe, elements])
 
-  const handlePayment = async () => {
+  const handlePayment = () => {
     setSubmitting(true)
 
     // if (!stripe || !elements || !card || !cart) {
@@ -106,7 +106,7 @@ const StripePaymentButton = ({
     //   return
     // }
 
-    const idealBank = elements.getElement(IdealBankElement)
+    // const idealBank = elements.getElement(IdealBankElement)
 
     // For brevity, this example is using uncontrolled components for
     // the accountholder's name. In a real world app you will
@@ -116,7 +116,7 @@ const StripePaymentButton = ({
 
     // const accountholderName = event.target["accountholder-name"]
     console.log("TEST PAYMENT")
-    const { error } = await stripe
+    return stripe
       .confirmIdealPayment(session.data.client_secret as string, {
         return_url: "https://example.com/checkout/complete",
       })
@@ -124,10 +124,10 @@ const StripePaymentButton = ({
         setSubmitting(false)
       })
 
-    if (error) {
-      // Show error to your customer.
-      console.log(error.message)
-    }
+    // if (error) {
+    //   // Show error to your customer.
+    //   console.log(error.message)
+    // }
     // await stripe
     //   .confirmIdealPayment(session.data.client_secret as string, {
     //     payment_method: {
@@ -182,10 +182,7 @@ const StripePaymentButton = ({
 
   return (
     <>
-      <Button onClick={handlePayment}>
-        {console.log(submitting)}
-        {submitting ? <Spinner /> : "iDeal betaling doen"}
-      </Button>
+      <Button onClick={handlePayment}> iDeal betaling doen</Button>
       {errorMessage && (
         <div className="text-red-500 text-small-regular mt-2">
           {errorMessage}
