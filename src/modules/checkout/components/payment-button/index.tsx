@@ -101,10 +101,10 @@ const StripePaymentButton = ({
   const handlePayment = async () => {
     setSubmitting(true)
 
-    if (!stripe || !elements || !card || !cart) {
-      setSubmitting(false)
-      return
-    }
+    // if (!stripe || !elements || !card || !cart) {
+    //   setSubmitting(false)
+    //   return
+    // }
 
     const idealBank = elements.getElement(IdealBankElement)
 
