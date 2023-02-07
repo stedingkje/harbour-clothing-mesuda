@@ -182,7 +182,7 @@ const StripePaymentButton = ({
 
   return (
     <>
-      <Button disabled={submitting} onClick={handlePayment}>
+      <Button onClick={handlePayment}>
         {console.log(submitting)}
         {submitting ? <Spinner /> : "iDeal betaling doen"}
       </Button>
